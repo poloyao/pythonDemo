@@ -2,13 +2,13 @@ import socket
 
 def socket_send():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    ip = input('输入ip：')
-    port = input('输入串口:')
+    ip = '192.168.1.13'#input('输入ip：')
+    port = '9090'#input('输入串口:')
     #print(port)
-    #sock.connect(('192.168.1.13',2111))
+    #sock.connect(('192.168.1.13',9090))
     sock.connect((ip,int(port)))
     while True:
-        date  = input('input:')
+        date  = '123'#input('input:')
         if date == "exit()":
             break
         sock.send(date.encode())
