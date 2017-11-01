@@ -1,21 +1,16 @@
-#http://search.smzdm.com/?c=home&s=xps
 import re
 import requests
 from bs4 import BeautifulSoup
 import time
 import urllib.request as ur  
 import urllib.parse as up  
-from http.cookiejar import CookieJar  
-from urllib import parse
 
  
 def main():
-    tag = input('待搜索的关键词:')
+    tag = 'xps'#input('待搜索的关键词:')
     if tag != '':
         post_data = get_post_data() 
-        opener = build_openner() 
-        ur.install_opener(opener)
-        url = 'http://search.smzdm.com/?c=home&s=xps'
+        url = 'http://search.smzdm.com/?c=home&s=xps&order=score&mall_id=41'
 
         # 直接get无法获取js加载的信息
         # res = requests.get(url)
@@ -24,13 +19,7 @@ def main():
         req = ur.Request(url,post_data,headers=hdr) #ur.Request(url, post_data, hdr)  
         res = ur.urlopen(req)
         res = res.read()
-        #print(res.decode())
         analysisHtml(res.decode())
-        # response = opener.open(req)  
-        # page = response.read()  
-        # print(page.decode('utf_8'))
-
-
     else:
         main()
 
@@ -39,14 +28,37 @@ def analysisHtml(html):
     soup = BeautifulSoup(html,'lxml')
     #print(soup.prettify())
     h5list = soup.find_all('h5')
+    queryList = list()
     for h5 in h5list:
-        print(h5.text)
+        data = MyData(h5.text)
+        if h5.text.split('\n\n').__len__() > 0:
+            data.name = h5.text.split('\n\n')[0].strip()
+        if h5.find_all('div').__len__() > 0:
+            data.value = h5.find_all('div')[0].text
+        # 没抓日期
+        queryList.append(data)
+    for queryIndex in range(queryList.__len__()):
+        print(queryList[queryIndex].ShowItem())
 
-    # taglist = soup.find_all('div', attrs={'class': re.compile("(z-feed-content)|()")})  
-    # for trtag in taglist:  
-    #     tdlist = trtag.find_all('h5')
-    while True:
-        time.sleep(1)
+class MyData:
+    def __init__(self,a_name = None,a_value = None,a_date = None):
+        self.name = a_name
+        self.value = a_value
+        self.date = a_date
+    
+    def ShowItem(self):
+        showtext = ''
+        if 'None' != str(self.name).strip(): 
+            showtext = "描述:" + self.name 
+            showtext += '\n\n'
+        if 'None' != str(self.value).strip(): 
+            showtext += "价值:" + self.value 
+            showtext += '\n\n'
+        if 'None' != str(self.date).strip(): 
+            showtext += "发布日期:" + self.date 
+        showtext += '----------------------------------------------'
+        return showtext
+
         
 # post数据  
 def get_post_data():  
@@ -55,13 +67,6 @@ def get_post_data():
     data['s'] = 'xps'        
     return up.urlencode(data).encode('utf_8') 
      
-
-# cookie上创建一个opener  
-def build_openner():  
-    cookie = CookieJar()  
-    cookie_handler = ur.HTTPCookieProcessor(cookie)  
-    opener = ur.build_opener(cookie_handler)  
-    return opener  
 
 hdr = {'Accept':'*/*',  
 #'Accept-Encoding':'gzip, deflate', #对于某些页面压缩后会出现读取问题 
@@ -76,3 +81,4 @@ hdr = {'Accept':'*/*',
 if __name__ == '__main__':
     print("启动张大妈搜索器")
     main()
+
