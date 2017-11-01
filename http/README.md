@@ -1,6 +1,8 @@
 # 所需要的三方库
-lxml 基于C的html解析器，比默认的速度块 \n\n
-[BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html) 用于从html中提取数据，可直接提取相应标签 \n\n
+lxml 基于C的html解析器，比默认的速度块  
+
+[BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html) 用于从html中提取数据，可直接提取相应标签   
+
 
 
 # 注意
