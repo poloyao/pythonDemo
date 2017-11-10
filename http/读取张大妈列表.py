@@ -7,10 +7,15 @@ import urllib.parse as up
 
  
 def main():
-    tag = 'xps'#input('待搜索的关键词:')
+    tag = input('待搜索的关键词:')
+    mall_id = input('搜索范围(0-默认，1-美亚):')
+    if mall_id != '0':
+        mall_id = '41' 
+    else:
+        mall_id = '0'
     if tag != '':
         post_data = get_post_data() 
-        url = 'http://search.smzdm.com/?c=home&s=xps&order=score&mall_id=41'
+        url = 'http://search.smzdm.com/?c=home&s='+tag+'&order=score&mall_id=' + mall_id
 
         # 直接get无法获取js加载的信息
         # res = requests.get(url)
@@ -20,6 +25,11 @@ def main():
         res = ur.urlopen(req)
         res = res.read()
         analysisHtml(res.decode())
+        repeat = input('从新搜索-1，退出-0:')
+        if repeat == '1':
+            main()
+        else:
+            return
     else:
         main()
 
