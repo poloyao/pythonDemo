@@ -55,12 +55,12 @@ s3 = serial.Serial(portList[2][2], 9600)
 s4 = serial.Serial(portList[3][2], 9600)
 s5 = serial.Serial(portList[4][2], 9600)
 
-    
+ShowTable()   
 
 # #转码后写入
 # # tx = '111111'.encode(encoding='utf_8')
 
-tx = b'\xAA\x00\x0d'
+#tx = b'\xAA\x00\x0d'
 
 thr = threading.Thread(target=postThread)
 thr.start()
