@@ -13,7 +13,14 @@ for i in range(reslist.__len__()):
     reslist[i] = row
 ```
 
-### 生成随机数方法
+## Inster操作后，如果想获取此条信息的自增ID 则可使用
+```
+int(cur.lastrowid)      #最后插入的ID
+int(con.insert_id())    #最新插入的ID
+```
+- 注意考虑并发的情况发生
+
+## 生成随机数方法
 ```
 name =  ''.join(random.sample(string.ascii_letters + string.digits, 6))
 ```

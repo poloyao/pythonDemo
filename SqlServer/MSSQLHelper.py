@@ -33,5 +33,7 @@ class MSSQLHelper:
     def ExecNonQuery(self, sql):
         cur = self.__GetConnect()
         cur.execute(sql)
+        result = int(cur.lastrowid)
         self.conn.commit()
         self.conn.close()
+        return result
