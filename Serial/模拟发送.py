@@ -68,7 +68,9 @@ thr.start()
 while True:
     print('输入项目ID 与 是否遮挡标记组合。[1]表示遮挡光电,[2]表示放开光电\n')
     readInput = input('请输入组合标记：')
-
+    if readInput.__len__() != 2:
+        print("输入标记不完整，请重新输入\n")
+        continue
     id = readInput[0]
     if id == '1':
         UpdatePost(1,readInput[1])
