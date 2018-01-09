@@ -8,7 +8,8 @@ import urllib.parse as up
 def main():
     tag = '16941158'#input('夺宝岛id：\n')
 
-    url = 'https://dbditem.jd.com/' + tag
+    #url = 'https://dbditem.jd.com/' + tag
+    url = 'https://pan.baidu.com/s/1i4FR6SX'
     #result = requests.get(url)
     req = ur.Request(url)
     res = ur.urlopen(req)
