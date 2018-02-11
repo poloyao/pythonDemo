@@ -1,10 +1,10 @@
-import socket
+﻿import socket
 import threading
 
 def socket_send():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    ip = '192.168.1.133'#input('输入ip：')
-    port = '1000'#input('输入串口:')
+    ip = input('输入ip：')#'192.168.1.198'#input('输入ip：')
+    port = input('输入串口:')#'1000'#input('输入串口:')
     #print(port)
     #sock.connect(('192.168.1.13',9090))
     sock.connect((ip,int(port)))
